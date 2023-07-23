@@ -13,7 +13,7 @@ struct callOutServiceInfo {
 };
 
 typedef std::function<void(callOutServiceInfo&)> ConnectedService;
-typedef int* INT;
+//typedef int* INT;
 
 void onConnectedServiceStateChanged(callOutServiceInfo &info) {
 	auto data_recieveConnected = info.m_stateChanged.recieveConnected;
@@ -23,29 +23,29 @@ void onConnectedServiceStateChanged(callOutServiceInfo &info) {
 }
 
 int main() {
-	//callOutServiceInfo connectedServiceInfo;
-	//connectedServiceInfo._handleStatus = true;
-	//ConnectedService registerCallBack = std::bind(&onConnectedServiceStateChanged,std::placeholders::_1);
-	//
-	//std::vector<ConnectedService*> _list_ConnectedServiceInfo;
-	//_list_ConnectedServiceInfo.push_back(&registerCallBack);
+	callOutServiceInfo connectedServiceInfo;
+	connectedServiceInfo._handleStatus = true;
+	ConnectedService registerCallBack = std::bind(&onConnectedServiceStateChanged,std::placeholders::_1);
+	
+	std::vector<ConnectedService*> _list_ConnectedServiceInfo;
+	_list_ConnectedServiceInfo.push_back(&registerCallBack);
 
-	//for (auto it : _list_ConnectedServiceInfo) {
-	//	callOutServiceInfo m_info;
-	//	m_info.m_stateChanged.recieveConnected = false;
-	//	(*it)(m_info);
-	//}
-
-	std::vector<INT*> myInt;
-	int nguyenNe = 5;
-	int* ptr = &nguyenNe;
-	myInt.push_back(&ptr);
-
-	for (auto it : myInt) {
-		std::cout << *it << std::endl;
+	for (auto it : _list_ConnectedServiceInfo) {
+		callOutServiceInfo m_info;
+		m_info.m_stateChanged.recieveConnected = false;
+		(*it)(m_info);
 	}
 
-	std::cout << &nguyenNe << std::endl;
+	//std::vector<INT*> myInt;
+	//int nguyenNe = 5;
+	//int* ptr = &nguyenNe;
+	//myInt.push_back(&ptr);
+
+	//for (auto it : myInt) {
+	//	std::cout << *it << std::endl;
+	//}
+
+	//std::cout << &nguyenNe << std::endl;
 
 	return 0;
 }
